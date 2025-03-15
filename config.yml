@@ -1,0 +1,33 @@
+# Model Configuration
+models:
+  default:
+    path: "./UBLModel_v2.pt"
+    name: "Default Detection Model"
+    description: "General purpose detection model"
+  ubl_classifier:
+    path: "./ublVSnon_ublModel_v1.pt"
+    name: "UBL Classifier"
+    description: "Model for classifying UBL and NON-UBL products"
+  shelf_horlicks:
+    path: "./bestHorlicks.pt"
+    name: "Shelf Horlicks"
+    description: "Model for detecting Horlicks products on shelves"
+  shelf_nido:
+    path: "./bestNido.pt"
+    name: "Shelf Nido"
+    description: "Model for detecting Nido products on shelves"
+
+# API Settings
+api:
+  title: "YOLOv8 Detection API"
+  host: "0.0.0.0"
+  port: 8000
+
+# Detection Settings
+detection:
+  conf_threshold: 0.25
+  iou_threshold: 0.45
+  img_size: 640
+
+# Temporary Directory Settings
+temp_dir_prefix: "yolo_temp_"
