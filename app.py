@@ -49,9 +49,16 @@ def draw_detections(image, detections):
         x, y, w, h = bbox["x"], bbox["y"], bbox["width"], bbox["height"]
         label = f"{det['class_name']} {det['confidence']:.2f}"
         
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        # Set color based on class name
+        color = (0, 255, 0)  # Default green
+        if "non-ubl" in det['class_name'].lower():
+            color = (0, 0, 255)  # Blue for non-UBL
+        elif "ubl" in det['class_name'].lower():
+            color = (0, 255, 0)  # Green for UBL
+        
+        cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
         text_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)[0]
-        cv2.rectangle(img, (x, y - text_size[1] - 10), (x + text_size[0], y), (0, 255, 0), -1)
+        cv2.rectangle(img, (x, y - text_size[1] - 10), (x + text_size[0], y), color, -1)
         cv2.putText(img, label, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
     
     return img
@@ -64,7 +71,7 @@ def main():
     st.sidebar.title("Model Selection")
     current_model = st.sidebar.radio(
         "Select Detection Model",
-        ["Default Detection", "UBL/NON-UBL Classification", "Shelf - Horlicks", "Shelf - Nido"],
+        ["Sachet Detection", "UBL/NON-UBL Classification", "Shelf - Horlicks", "Shelf - Nido"],
         key="model_selection"
     )
     

@@ -7,3 +7,4 @@ pathlib>=1.0.1
 streamlit
 fastapi
 uvicorn
+python-multipart
